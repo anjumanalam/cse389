@@ -1,0 +1,64 @@
+----- HOME PAGE -----
+Hero
+    Tagline: Fresh Healthy Halal
+    Order Now button
+
+About Us
+Silk City Platters is a neighborhood dedicated American Halal Food restaurant serving made-to-order and 
+customizable platters, pitas, and salads among other delectable dishes. We proudly serve our community and 
+the greater Paterson area both through our brick-and-mortar location in the heart of Downtown Paterson, NJ, as 
+well as our delivery ordering services.
+
+We also provide education opportunities and serve the community by sponsoring local youth
+organizations and promoting the young leaders of Paterson through our Silk City Wall of Fame.
+
+Hours of Operation
+Mon - Sat       11 AM - 11 PM
+Sunday          Closed
+
+----- MENU PAGE ------
+pdf version
+PICK IT
+Pita: pita bread with choice of proteins, essentials, and white sauce
+Platter: rice bowl filled with choice of protein, essentials, and pita wedges
+Salad: bowl filled with choice of protein, essentials, cheese, crunch, and dressing
+
+FILL IT
+Chicken, Gyro, Mix, Falafel
+Extras:
+    extra protein: $1.89
+    extra falafel: 1.09
+
+TOP IT
+Essentials: tomatoes, cucumbers, green peppers, onions
+Premiums: olives, corn, chickpeas, avocados
+Cheese: feta, mozzarella, cheddar, pepper jack
+Crunch: croutons, pita chips, almonds, cashews
+Dressing: balsamic vinaigrette, buttermilk ranch, creamy caesar, italian dressing
+
+SAUCES
+White
+Red
+
+SANDWICHES
+Sandwiches: Crispy Chicken, Fish-O-Fillet, Savory Beef Burger, Very Veggie Burger
+
+SIDES
+French Fries, Falafel Bites, Mozzarella Sticks, Chicken Tenders
+
+DRINKS
+Can, Water, Fountain, Bottle
+
+------ CONTACT PAGE ------
+Address: 170 Market St, Paterson, NJ 07502
+Phone: (973) 619-8945
+Social Links: Faebook and Instagram
+
+Map Location
+
+Contact Form
+    - Name
+    - Phone
+    - Email
+    - Inquiry Type
+    - Message
