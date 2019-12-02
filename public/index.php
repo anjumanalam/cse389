@@ -27,7 +27,7 @@
                 <div class="col-md-5 p-lg-5 mx-auto my-5 text-white">
                     <h1 class="display-3 font-weight-normal">TASTE IT. LOVE IT. SHARE IT.</h1>
                     <a class="btn btn-outline-light mt-5" href="menu.html">ORDER NOW</a>
-                    <!-- EDIT ORDER NOW button href -->
+                    <!-- EDIT ORDER NOW button href to menu-->
                 </div>
 
                 <div class="product-device box-shadow d-none d-md-block"></div>
