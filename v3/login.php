@@ -1,3 +1,35 @@
+<?php
+session_start();
+
+$hostname = "localhost";
+$username = "mario";
+$password = "password";
+$db = "scp";
+
+$dbconnect=mysqli_connect($hostname,$username,$password,$db);
+
+if ($dbconnect->connect_error) {
+  die("Database connection failed: " . $dbconnect->connect_error);
+}
+
+if(isset($_POST['submit'])) {
+  $reviewer_name=$_POST['reviewer_name'];
+  $star_rating=$_POST['star_rating'];
+  $details=$_POST['details'];
+
+  $query = "INSERT INTO user (username, password)
+  VALUES ('$reviewer_name', '$star_rating', '$details')";
+
+    if (!mysqli_query($dbconnect, $query)) {
+        die('An error occurred. Your review has not been submitted.');
+    } else {
+      echo "Thanks for your review.";
+    }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,6 +87,8 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center form_container">
+
+                    <!-- FORM -->
                     <form action="index.html" method="POST" role="form">
                         <div class="input-group mb-3">
                             <label for="username"></label>
@@ -67,9 +101,10 @@
                         </div> <!-- END password input -->
 
                             <div class="d-flex justify-content-center mt-3 login_container">
-                        <button type="submit" name="button" class="btn login_btn">Login</button>
+                        <button type="submit" name="submit" class="btn login_btn">Login</button>
                     </div>
                     </form>
+                    
                 </div>
         
                 <div class="mt-4">
