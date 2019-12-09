@@ -1,4 +1,10 @@
 <?php
+    #load all functions
+    require_once('../private/initialize.php');
+?>
+
+<!-- Form script -->
+<?php
 session_start();
 
 if(isset($_POST['email'])) {
@@ -23,9 +29,10 @@ if(isset($_POST['email'])) {
         die('We are sorry, but there appears to be a problem with the form you submitted.');       
     }
  
+    // ensure input from user is not bad input
     $name = strip_tags($_POST['name']); // required
-    $email_from = $_POST['email']; // required
-    $message = $_POST['message']; // required
+    $email_from = strip_tags($_POST['email']); // required
+    $message = strip_tags($_POST['message']); // required
  
 
     if(isset($_POST['name']) & !empty($_POST['name'])) {
@@ -74,48 +81,21 @@ $headers = 'From: '.$email_from."\r\n".
   }
 ?>
 
-
-<!-- include your own success html here -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Contact | Silk City Platters</title>
-
-      <!-- Bootstrap core CSS -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-      <!-- Custom styles for this template -->
-      <link rel="stylesheet" href="contact.css">
-
-  </head>
+    <!-- Set page title -->
+    <?php $page_title = 'Contact'; ?>
+    <?php
+        #load head
+        require_once('../private/shared/head.php');
+    ?>
 
   <body>
       <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <div class="container">
-              <a class="navbar-brand" href="index.html">Silk City Platters</a>
-              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarResponsive">
-                  <ul class="navbar-nav ml-auto">
-                      <li class="nav-item">
-                          <a class="nav-link" href="menu.php">Menu</a>
-                      </li>
-                      <li class="nav-item active">
-                          <a class="nav-link" href="send_form_email.php">Contact</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="login.php">Login</a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </nav>
+    <?php
+        #load navigation
+        require_once('../private/shared/nav.php');
+    ?>
 
       <!-- Hero -->
       <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -162,7 +142,7 @@ $headers = 'From: '.$email_from."\r\n".
           <div class="row">
               <div class="col-lg-8 mb-4">
               <h3>Let's Talk</h3>
-              <form name="sentMessage" id="contactForm" method="post" action="send_form_email.php">
+              <form name="sentMessage" id="contactForm" method="post" action="contact.php">
                   <!-- Name -->
                   <div class="control-group form-group">
                       <div class="controls">

@@ -9,16 +9,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="menu.html">Menu</a>
-                    <!-- EDIT MENU href -->
+                    <a class="nav-link" href="menu.php">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                    <!-- EDIT CONTACT href -->
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
-                    <!-- EDIT LOGIN href -->
+                    <a class="nav-link" href="login.php">Login</a>
                 </li>
             </ul>
         </div> <!-- END links div -->

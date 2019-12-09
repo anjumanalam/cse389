@@ -1,4 +1,59 @@
 <?php
+    #load all functions
+    require_once('../private/initialize.php');
+?>
+
+<!-- Login form functionality -->
+<?php
+session_start();
+
+// function login();
+
+// function login($username, $password)
+// {
+
+//     require_once '../../dbpw.php';
+
+//     $mysqli = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
+
+//     if (mysqli_connect_errno()) {
+//       printf("Connect failed: %s\n", mysqli_connect_error());
+//       exit();
+//     }
+
+//     $query = 'SELECT username FROM admins WHERE username=? AND password=?';
+
+//     if($stmt = $mysqli->prepare($query)){
+//       $stmt->bind_param('ss', $username, $password)
+//       $stmt->execute();
+//       $stmt->store_result();
+//       $num_row = $stmt->num_rows;
+//       $stmt->bind_result($username);
+//       $stmt->fetch();
+//       $stmt->close();
+//     }else die("Failed to prepare query");
+
+//     if( $num_row === 1 ) {
+//       $_SESSION['userid'] = $username;
+//       return true;
+//     }
+//     return false;
+// }
+
+// #validate login
+// if (isset($_POST['submit'])){
+//     $validLogin = login($_POST['username'], $_POST['password']);
+
+//     if ($validLogin){
+//         header("Location: menu.php");
+//         exit();
+//      } else {
+//         echo 'Incorrect login information';
+//      }
+// }
+
+
+
 if(!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
 }
@@ -6,58 +61,53 @@ if(!isset($_SESSION['cart'])) {
 if( isset($_POST['addToCart'])) {
     $_SESSION['cart'][] = $_POST['item_type'];
 }
-
 // $_SESSION['cart'] = array(); NOT NECESSARY
 // $_SESSION['cart'][] = "1"; NOT NECESSARY
 // $_SESSION['cart'][] = "2"; NOT NECESSARY
+
+$hostname = "localhost";
+$username = "mario";
+$password = "password";
+$db = "scp";
+
+$dbconnect=mysqli_connect($hostname,$username,$password,$db);
+
+if ($dbconnect->connect_error) {
+  die("Database connection failed: " . $dbconnect->connect_error);
+}
+
+if(isset($_POST['submit'])) {
+  $username=$_POST['username'];
+  $password=$_POST['password'];
+
+  $query = "INSERT INTO user
+  VALUES ('$username', '$password')";
+
+    if (!mysqli_query($dbconnect, $query)) {
+        die('An error occurred. Your review has not been submitted.');
+    } else {
+      echo "Thanks for your review.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>Login | Silk City Platters</title>
     
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- External Stylesheet -->
-    <link rel="stylesheet" href="login.css">
-</head>
+    <!-- Set page title -->
+    <?php $page_title = 'Login'; ?>
+    <?php
+        #load head
+        require_once('../private/shared/head.php');
+    ?>
 
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">Silk City Platters</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="menu.php">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="send_form_email.php">Contact</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="login.php">Login</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php
+        #load navigation
+        require_once('../private/shared/nav.php');
+    ?>
 
 
     <div class="container h-100">
@@ -71,7 +121,7 @@ if( isset($_POST['addToCart'])) {
                 <div class="d-flex justify-content-center form_container">
 
                     <!-- FORM -->
-                    <form action="validate.php" method="POST" role="form">
+                    <form action="index.html" method="POST" role="form">
                         <div class="input-group mb-3">
                             <label for="username"></label>
                             <input id="username" type="text" name="username" class="form-control input_user" value="" placeholder="username">
@@ -82,9 +132,9 @@ if( isset($_POST['addToCart'])) {
                             <input id="password" type="password" name="password" class="form-control input_pass" value="" placeholder="password">
                         </div> <!-- END password input -->
 
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <input type="submit" id="btn" value="Login">
-                        </div>
+                            <div class="d-flex justify-content-center mt-3 login_container">
+                        <button type="submit" name="submit" class="btn login_btn">Login</button>
+                    </div>
                     </form>
                     
                 </div>

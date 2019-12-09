@@ -1,16 +1,24 @@
 <?php
-if(!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
 
-if( isset($_POST['addToCart'])) {
-    $_SESSION['cart'][] = $_POST['item_type'];
-}
+// Get values passed from form in login.php file
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-// $_SESSION['cart'] = array(); NOT NECESSARY
-// $_SESSION['cart'][] = "1"; NOT NECESSARY
-// $_SESSION['cart'][] = "2"; NOT NECESSARY
+// connect to server and select database
+$db = mysqli_connect("localhost","username","password","scp");
+
+$username = mysqli_real_escape_string($db,$_POST['username']);
+$password = mysqli_real_escape_string($db,$_POST['password']);
+
+// Perform query
+if ($result = mysqli_query($db, "SELECT * FROM users")) {
+    echo "Returned rows are: " . mysqli_num_rows($result);
+    // Free result set
+    mysqli_free_result($result);
+  }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +47,7 @@ if( isset($_POST['addToCart'])) {
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.php">Silk City Platters</a>
+            <a class="navbar-brand" href="index.html">Silk City Platters</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

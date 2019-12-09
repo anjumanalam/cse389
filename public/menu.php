@@ -1,47 +1,106 @@
+<?php
+    #load all functions
+    require_once('../private/initialize.php');
+?>
+
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    <!-- Set page title -->
+    <?php $page_title = 'Menu'; ?>
+    <?php
+        #load head
+        require_once('../private/shared/head.php');
+    ?>
 
-    <title>Menu | Silk City Platters</title>
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!-- Custom styles for this template -->
-    <link href="menu.css" rel="stylesheet">
-
-  </head>
+    <style>
+      body {
+      font-family: 'Montserrat', sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    .pt-100{
+        padding-top:100px;
+    }
+    .pb-100{
+        padding-top:100px;
+    }
+    .mb-60 {
+      margin-bottom: 60px;
+    }
+    .section-title p {
+      font-size: 24px;
+      font-family: Oleo Script;
+      margin-bottom: 0px;
+      margin-top:50px;
+    }
+    .section-title h4 {
+      font-size: 40px;
+      text-transform: capitalize;
+      color: #FF5E18;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 25px;
+    }
+    .section-title h4::before {
+      width: 80px;
+      height: 1.5px;
+      bottom: 0;
+      left: 50%;
+      margin-left: -40px;
+    }
+    .section-title h4::before, .section-title h4::after {
+      position: absolute;
+      content: "";
+      background-color: #FF5E18;
+    }
+    .single_menu_list img {
+      max-width: 30%;
+      position: absolute;
+      left: 0px;
+      top: 0;
+      border: 1px solid #ddd;
+      padding: 3px;
+      border-radius: 50%;
+      transition: .4s;
+    }
+    .menu_style1 .single_menu_list img {
+      position: static;
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 45px;
+    }
+    .single_menu_list h4 {
+      font-size: 20px;
+      border-bottom: 1px dashed #333;
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+    .single_menu_list h4 span {
+      float: right;
+      font-weight: bold;
+      color: #FF5E18;
+      font-style: italic;
+    }
+    p {
+      font-weight: 300;
+      font-size: 14px;
+    }
+    .menu_style1 .single_menu_list {
+      text-align: center;
+    }
+    .single_menu_list:hover img {
+      border-radius: 0;
+      transition: .4s;
+    }
+    </style>
 
   <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">Silk City Platters</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="menu.html">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
-                    </li>
-                </ul>
-            </div>
-        </div> <!-- close container -->
-    </nav>
+    <?php
+        #load navigation
+        require_once('../private/shared/nav.php');
+    ?>
 
     <!-- Hero -->
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">

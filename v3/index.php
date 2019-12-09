@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if(isset($_SESSION['username'])) {
+    $icon = "<a id='login-cart' class='nav-link' href='menu.php'>Cart</a>";
+
+} else {
+    $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,13 +43,13 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="menu.html">Menu</a>
+                        <a class="nav-link" href="menu.php">Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="send_form_email.php">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
+                        <a href='#'><?php echo $icon ?></a>
                     </li>
                 </ul>
             </div>
@@ -49,7 +62,7 @@
         <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
             <div class="col-md-5 p-lg-5 mx-auto my-5 text-white">
                 <h1 class="display-3 font-weight-normal">TASTE IT. LOVE IT. SHARE IT.</h1>
-                <a class="btn btn-outline-light mt-5" href="menu.html">ORDER NOW</a>
+                <a class="btn btn-outline-light mt-5" href="menu.php">ORDER NOW</a>
             </div>
 
             <div class="product-device box-shadow d-none d-md-block"></div>
