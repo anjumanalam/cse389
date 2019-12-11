@@ -1,15 +1,34 @@
 <?php
-if(!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
+if(isset($_POST["submit"])){
+    if(!empty($_POST['username']) && !empty($_POST['password'])) {  
+        $user=$_POST['username'];  
+        $pass=$_POST['password'];  
+      
+        $con=mysqli_connect('localhost','root','', 'scp') or die(mysql_error());  
+        mysqli_select_db($con, 'scp') or die("cannot select DB");
+        $query=mysqli_query($con, "SELECT * FROM users WHERE username='".$user."' AND password='".$pass."'");  
+        $numrows=mysqli_num_rows($query);  
+        if($numrows!=0) {
+            while($row=mysqli_fetch_assoc($query)){
+                $dbusername=$row['username'];  
+                $dbpassword=$row['password'];  
+            }
 
-if( isset($_POST['addToCart'])) {
-    $_SESSION['cart'][] = $_POST['item_type'];
+            if($user == $dbusername && $pass == $dbpassword) {  
+                session_start();  
+                $_SESSION['sess_user']=$user;
+                /* Redirect browser */  
+                header("Location: menu.php");
+            }
+        }
+        else {
+            echo "Invalid username or password!";
+        }
+    }
+    else {
+        echo "All fields are required!";
+    }
 }
-
-// $_SESSION['cart'] = array(); NOT NECESSARY
-// $_SESSION['cart'][] = "1"; NOT NECESSARY
-// $_SESSION['cart'][] = "2"; NOT NECESSARY
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +90,7 @@ if( isset($_POST['addToCart'])) {
                 <div class="d-flex justify-content-center form_container">
 
                     <!-- FORM -->
-                    <form action="validate.php" method="POST" role="form">
+                    <form action="login.php" method="POST" role="form">
                         <div class="input-group mb-3">
                             <label for="username"></label>
                             <input id="username" type="text" name="username" class="form-control input_user" value="" placeholder="username">
@@ -83,7 +102,7 @@ if( isset($_POST['addToCart'])) {
                         </div> <!-- END password input -->
 
                         <div class="d-flex justify-content-center mt-3 login_container">
-                            <input type="submit" id="btn" value="Login">
+                            <input name="submit" type="submit" id="btn" value="submit">
                         </div>
                     </form>
                     

@@ -1,3 +1,19 @@
+<?php  
+session_start();
+
+if(isset($_SESSION["sess_user"])){  
+    // header("location: login.php");  
+    echo "it worked";
+    $icon = "<a id='login-cart' class='nav-link' href='menu.php'>Cart</a>";
+    $logout = "<a id='logout' class='nav-link' href='logout.php'>Logout</a>";
+} else {
+  echo "did not work";
+  $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
+}
+
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -36,7 +52,10 @@
                         <a class="nav-link" href="send_form_email.php">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
+                        <a href="#"><?php echo $icon ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#"><?php echo $logout ?></a>
                     </li>
                 </ul>
             </div>

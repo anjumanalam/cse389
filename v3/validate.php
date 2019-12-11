@@ -11,12 +11,11 @@ $username = mysqli_real_escape_string($db,$_POST['username']);
 $password = mysqli_real_escape_string($db,$_POST['password']);
 
 // Perform query
-if ($result = mysqli_query($db, "SELECT * FROM users")) {
-    echo "Returned rows are: " . mysqli_num_rows($result);
-    // Free result set
-    mysqli_free_result($result);
-  }
-
+// if ($result = mysqli_query($db, "SELECT * FROM users")) {
+//     echo "Returned rows are: " . mysqli_num_rows($result);
+//     // Free result set
+//     mysqli_free_result($result);
+//   }
 ?>
 
 

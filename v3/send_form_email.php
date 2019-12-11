@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+if(isset($_SESSION["sess_user"])){  
+    echo "it worked";
+    $icon = "<a id='login-cart' class='nav-link' href='menu.php'>Cart</a>";
+} else {
+    echo "did not work";
+    $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
+}
+
 if(isset($_POST['email'])) {
  
     // EDIT THE 2 LINES BELOW AS REQUIRED

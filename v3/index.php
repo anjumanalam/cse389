@@ -1,9 +1,9 @@
 <?php
 session_start();
-
-if(isset($_SESSION['username'])) {
+$logout = '';
+if(isset($_SESSION['sess_user'])) {
     $icon = "<a id='login-cart' class='nav-link' href='menu.php'>Cart</a>";
-
+    $logout = "<a id='logout' class='nav-link' href='logout.php'>Logout</a>";
 } else {
     $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
 }
@@ -35,7 +35,7 @@ if(isset($_SESSION['username'])) {
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand active" href="index.html">Silk City Platters</a>
+            <a class="navbar-brand active" href="index.php">Silk City Platters</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,6 +50,9 @@ if(isset($_SESSION['username'])) {
                     </li>
                     <li class="nav-item">
                         <a href='#'><?php echo $icon ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#"><?php echo $logout ?></a>
                     </li>
                 </ul>
             </div>
