@@ -21,3 +21,8 @@
 .bg-dark {
     background-color: #24342C!important;
 }
+
+body {
+	color: #333;
+	line-height: 1.6;
+}

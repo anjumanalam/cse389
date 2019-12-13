@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-if(isset($_SESSION["sess_user"])){  
-    echo "it worked";
-    $icon = "<a id='login-cart' class='nav-link' href='menu.php'>Cart</a>";
+$logout = "";
+if(isset($_SESSION["sess_user"])){   
+    $icon = "<a id='login-cart' class='nav-link' href='cart.php'>Cart</a>";
+    $logout = "<a id='logout' class='nav-link' href='logout.php'>Logout</a>";
 } else {
-    echo "did not work";
-    $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
+  $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
 }
 
 if(isset($_POST['email'])) {
@@ -97,7 +97,7 @@ $headers = 'From: '.$email_from."\r\n".
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
       <!-- Custom styles for this template -->
-      <link rel="stylesheet" href="contact.css">
+      <link rel="stylesheet" href="main-style.css">
 
   </head>
 
@@ -105,7 +105,7 @@ $headers = 'From: '.$email_from."\r\n".
       <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="container">
-              <a class="navbar-brand" href="index.html">Silk City Platters</a>
+              <a class="navbar-brand" href="index.php">Silk City Platters</a>
               <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
               </button>
@@ -118,7 +118,10 @@ $headers = 'From: '.$email_from."\r\n".
                           <a class="nav-link" href="send_form_email.php">Contact</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="login.php">Login</a>
+                        <a href="#"><?php echo $icon ?></a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#"><?php echo $logout ?></a>
                       </li>
                   </ul>
               </div>

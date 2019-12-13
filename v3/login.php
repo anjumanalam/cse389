@@ -22,11 +22,15 @@ if(isset($_POST["submit"])){
             }
         }
         else {
-            echo "Invalid username or password!";
+            echo '<script type="text/javascript">';
+            echo ' alert("Incorrect username or password.")';
+            echo '</script>';
         }
     }
     else {
-        echo "All fields are required!";
+        echo '<script type="text/javascript">';
+        echo ' alert("All fields required!")';
+        echo '</script>';
     }
 }
 ?>
@@ -104,17 +108,7 @@ if(isset($_POST["submit"])){
                         <div class="d-flex justify-content-center mt-3 login_container">
                             <input name="submit" type="submit" id="btn" value="submit">
                         </div>
-                    </form>
-                    
-                </div>
-        
-                <div class="mt-4">
-                    <div class="d-flex justify-content-center links">
-                        Don't have an account? <a href="#" class="ml-2">Sign Up</a>
-                    </div>
-                    <div class="d-flex justify-content-center links">
-                        <a href="#">Forgot your password?</a>
-                    </div>
+                    </form>   
                 </div>
             </div>
         </div>

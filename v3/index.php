@@ -2,7 +2,7 @@
 session_start();
 $logout = '';
 if(isset($_SESSION['sess_user'])) {
-    $icon = "<a id='login-cart' class='nav-link' href='menu.php'>Cart</a>";
+    $icon = "<a id='login-cart' class='nav-link' href='cart.php'>Cart</a>";
     $logout = "<a id='logout' class='nav-link' href='logout.php'>Logout</a>";
 } else {
     $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
@@ -27,7 +27,7 @@ if(isset($_SESSION['sess_user'])) {
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="home.css" rel="stylesheet">
+    <link href="main-style.css" rel="stylesheet">
 
 </head>
 

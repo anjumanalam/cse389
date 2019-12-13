@@ -1,14 +1,60 @@
 <?php  
 session_start();
 
-if(isset($_SESSION["sess_user"])){  
-    // header("location: login.php");  
-    echo "it worked";
-    $icon = "<a id='login-cart' class='nav-link' href='menu.php'>Cart</a>";
+$logout = "";
+if(isset($_SESSION["sess_user"])){   
+    $icon = "<a id='login-cart' class='nav-link' href='cart.php'>Cart</a>";
     $logout = "<a id='logout' class='nav-link' href='logout.php'>Logout</a>";
 } else {
-  echo "did not work";
   $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
+}
+
+require_once("dbcontroller.php");
+$db_handle = new DBController();
+if(!empty($_GET["action"])) {
+
+switch($_GET["action"]) {
+case "add":
+if(!empty($_POST["quantity"])) {
+  $productByCode = $db_handle->runQuery("SELECT * FROM tblproduct WHERE code='" . $_GET["code"] . "'");
+  $itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
+  
+  if(!empty($_SESSION["cart_item"])) {
+    if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
+      foreach($_SESSION["cart_item"] as $k => $v) {
+          if($productByCode[0]["code"] == $k) {
+            if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+              $_SESSION["cart_item"][$k]["quantity"] = 0;
+            }
+            $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+          }
+      }
+    } else {
+      $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+    }
+  } else {
+    $_SESSION["cart_item"] = $itemArray;
+  }
+    }
+    
+break;
+
+case "remove":
+if(!empty($_SESSION["cart_item"])) {
+  foreach($_SESSION["cart_item"] as $k => $v) {
+      if($_GET["code"] == $k)
+        unset($_SESSION["cart_item"][$k]);				
+      if(empty($_SESSION["cart_item"]))
+        unset($_SESSION["cart_item"]);
+  }
+    }
+    
+break;
+
+case "empty":
+unset($_SESSION["cart_item"]);
+break;	
+}
 }
 
 ?>
@@ -31,7 +77,7 @@ if(isset($_SESSION["sess_user"])){
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="menu.css" rel="stylesheet">
+    <link href="main-style.css" rel="stylesheet">
 
   </head>
 
@@ -70,43 +116,72 @@ if(isset($_SESSION["sess_user"])){
       </div>
     </div>
 
+    <?php
+      $product_array = $db_handle->runQuery("SELECT * FROM tblproduct ORDER BY id ASC");
+      if (!empty($product_array)) { 
+        for($key = 0; $key < sizeof($product_array); $key+=3){
+    ?>
+
     <!-- Menu Items -->
     <div class="container">
       <div class="row menu_style1">
         <div class="col-md-4">
             <div class="single_menu_list">
-              <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-4.jpg" alt="">
+            <div><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
+              <!-- <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-4.jpg" alt=""> -->
               <div class="menu_content">
-                  <h4>Chicken Wings and Fries  <span>$20</span></h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum libero asperiores quibusdam 
-                    illo fugit nesciunt, reiciendis est quia facere quas. Omnis sunt reprehenderit eaque voluptates, 
-                    minima consectetur cumque impedit provident.</p>
+                  <h4><?php echo $product_array[$key]["name"]; ?>  <span><?php echo ('$'.$product_array[$key]["price"]); ?></span></h4>
+                  <p><?php echo $product_array[$key]["description"]; ?></p>
               </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="single_menu_list">
-              <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-6.jpg" alt="">
+            <div><img src="<?php echo $product_array[$key+1]["image"]; ?>"></div>
+              <!-- <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-6.jpg" alt=""> -->
               <div class="menu_content">
-                  <h4>Grilled Chicken and Salad <span>$15</span></h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam labore maxime iusto sunt, 
-                    distinctio animi, illum itaque hic quia nostrum perspiciatis blanditiis reiciendis repellat 
-                    numquam repudiandae illo soluta assumenda corporis.</p>
+              <h4><?php echo $product_array[$key+1]["name"]; ?>  <span><?php echo ('$'.$product_array[$key+1]["price"]); ?></span></h4>
+                  <p><?php echo $product_array[$key+1]["description"]; ?></p>
               </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="single_menu_list">
-              <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-5.jpg" alt="">
+            <div><img src="<?php echo $product_array[$key+2]["image"]; ?>"></div>
+              <!-- <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-5.jpg" alt=""> -->
               <div class="menu_content">
-                  <h4>Croissants <span>$20</span></h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur rem ea esse veniam amet 
-                    nihil odit, reiciendis perferendis autem ab voluptatem quisquam, beatae itaque, laborum soluta! 
-                    Recusandae odio cupiditate mollitia.</p>
+              <h4><?php echo $product_array[$key+2]["name"]; ?>  <span><?php echo ('$'.$product_array[$key+2]["price"]); ?></span></h4>
+                  <p><?php echo $product_array[$key+2]["description"]; ?></p>
               </div>
             </div>
         </div>
     </div>
+
+    <?php
+          }
+        }
+    ?>
+
+    <div id="product-grid">
+    <?php
+    $product_array = $db_handle->runQuery("SELECT * FROM tblproduct ORDER BY id ASC");
+    if (!empty($product_array)) { 
+      foreach($product_array as $key=>$value){
+    ?>
+      <div class="product-item">
+        <form method="post" action="cart.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>">
+        <div class="product-tile-footer">
+        <div class="product-title"><?php echo $product_array[$key]["name"]; ?></div>
+        <div class="product-price"><?php echo "$".$product_array[$key]["price"]; ?></div>
+        <div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2" /><input type="submit" value="Add to Cart" class="btnAddAction" /></div>
+        </div>
+        </form>
+      </div>
+    <?php
+      }
+    }
+    ?>
+  </div>
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

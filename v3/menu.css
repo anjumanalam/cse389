@@ -24,7 +24,6 @@
 
 /* Menu Items */
 body {
-	font-family: 'Montserrat', sans-serif;
 	color: #333;
 	line-height: 1.6;
 }
@@ -37,32 +36,7 @@ body {
 .mb-60 {
 	margin-bottom: 60px;
 }
-.section-title p {
-	font-size: 24px;
-	font-family: Oleo Script;
-	margin-bottom: 0px;
-	margin-top:50px;
-}
-.section-title h4 {
-	font-size: 40px;
-	text-transform: capitalize;
-	color: #FF5E18;
-	position: relative;
-	display: inline-block;
-	padding-bottom: 25px;
-}
-.section-title h4::before {
-	width: 80px;
-	height: 1.5px;
-	bottom: 0;
-	left: 50%;
-	margin-left: -40px;
-}
-.section-title h4::before, .section-title h4::after {
-	position: absolute;
-	content: "";
-	background-color: #FF5E18;
-}
+
 .single_menu_list img {
 	max-width: 30%;
 	position: absolute;
