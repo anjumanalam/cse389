@@ -106,7 +106,7 @@ if(isset($_POST["submit"])){
                         </div> <!-- END password input -->
 
                         <div class="d-flex justify-content-center mt-3 login_container">
-                            <input name="submit" type="submit" id="btn" value="submit">
+                            <input class="btn btn-primary" name="submit" type="submit" id="btn" value="submit">
                         </div>
                     </form>   
                 </div>

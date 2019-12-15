@@ -1,6 +1,7 @@
 /* Primary colors */
 .btn-primary {
-    background-color: #338A4B!important;
+	background-color: #338A4B!important;
+	border-color: #24342C!important;
 }
 
 .bg-primary {
@@ -37,6 +38,21 @@ body {
 .mb-60 {
 	margin-bottom: 60px;
 }
+
+.hero-image {
+	/* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("eating-overhead.jpg");
+  
+	/* Set a specific height */
+	height: 50%;
+  
+	/* Position and center the image to scale nicely on all screens */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+  }
+  
 
 .single_menu_list img {
 	max-width: 30%;
