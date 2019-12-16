@@ -11,54 +11,61 @@ if(isset($_SESSION["sess_user"])){
   $icon = "<a id='login-cart' class='nav-link' href='login.php'>Login</a>";
 }
 
-
 require_once("dbcontroller.php");
 $db_handle = new DBController();
+
+// 
 if(!empty($_GET["action"])) {
+  // handle cases where user adds to cart from menu, or removes from cart, or clicks empty cart button
+  switch($_GET["action"]) {
+    case "add":
+    if(!empty($_POST["quantity"])) {
+      $productByCode = $db_handle->runQuery("SELECT * FROM tblproduct WHERE code='" . $_GET["code"] . "'");
+      $itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
+      
+      if(!empty($_SESSION["cart_item"])) {
 
-switch($_GET["action"]) {
-case "add":
-if(!empty($_POST["quantity"])) {
-  $productByCode = $db_handle->runQuery("SELECT * FROM tblproduct WHERE code='" . $_GET["code"] . "'");
-  $itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
-  
-  if(!empty($_SESSION["cart_item"])) {
-    if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
-      foreach($_SESSION["cart_item"] as $k => $v) {
-          if($productByCode[0]["code"] == $k) {
-            if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-              $_SESSION["cart_item"][$k]["quantity"] = 0;
-            }
-            $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+        if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
+
+          foreach($_SESSION["cart_item"] as $k => $v) {
+              if($productByCode[0]["code"] == $k) {
+                if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+                  $_SESSION["cart_item"][$k]["quantity"] = 0;
+                }
+                $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+              }
           }
+        } 
+
+        else {
+          $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+        }
+
+      } //END if cart_item
+      else {
+        $_SESSION["cart_item"] = $itemArray;
       }
-    } else {
-      $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-    }
-  } else {
-    $_SESSION["cart_item"] = $itemArray;
-  }
-    }
-    
-break;
+    } //END if quantity statment
+        
+    break;
 
-case "remove":
-if(!empty($_SESSION["cart_item"])) {
-  foreach($_SESSION["cart_item"] as $k => $v) {
-      if($_GET["code"] == $k)
-        unset($_SESSION["cart_item"][$k]);				
-      if(empty($_SESSION["cart_item"]))
-        unset($_SESSION["cart_item"]);
-  }
-    }
-    
-break;
+    case "remove":
+    if(!empty($_SESSION["cart_item"])) {
+      foreach($_SESSION["cart_item"] as $k => $v) {
+          if($_GET["code"] == $k)
+            unset($_SESSION["cart_item"][$k]);
+          if(empty($_SESSION["cart_item"]))
+            unset($_SESSION["cart_item"]);
+          } //END foreach
+        } //END if statement
+    break;
 
-case "empty":
-unset($_SESSION["cart_item"]);
-break;	
-}
-}
+    case "empty":
+    unset($_SESSION["cart_item"]);
+    break;
+
+  } //END switch statement
+} //END if statement
 
 ?>
 
@@ -131,7 +138,6 @@ break;
         <div class="col-md-4">
             <div class="single_menu_list">
             <div><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
-              <!-- <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-4.jpg" alt=""> -->
               <div class="menu_content">
                   <h4><?php echo $product_array[$key]["name"]; ?>  <span><?php echo ('$'.$product_array[$key]["price"]); ?></span></h4>
                   <p><?php echo $product_array[$key]["description"]; ?></p>
@@ -141,7 +147,6 @@ break;
         <div class="col-md-4">
             <div class="single_menu_list">
             <div><img src="<?php echo $product_array[$key+1]["image"]; ?>"></div>
-              <!-- <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-6.jpg" alt=""> -->
               <div class="menu_content">
               <h4><?php echo $product_array[$key+1]["name"]; ?>  <span><?php echo ('$'.$product_array[$key+1]["price"]); ?></span></h4>
                   <p><?php echo $product_array[$key+1]["description"]; ?></p>
@@ -151,7 +156,6 @@ break;
         <div class="col-md-4">
             <div class="single_menu_list">
             <div><img src="<?php echo $product_array[$key+2]["image"]; ?>"></div>
-              <!-- <img src="http://infinityflamesoft.com/html/restarunt-preview/assets/img/menu/menu-5.jpg" alt=""> -->
               <div class="menu_content">
               <h4><?php echo $product_array[$key+2]["name"]; ?>  <span><?php echo ('$'.$product_array[$key+2]["price"]); ?></span></h4>
                   <p><?php echo $product_array[$key+2]["description"]; ?></p>
